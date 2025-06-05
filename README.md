@@ -3,7 +3,7 @@
 <img src="assets/VikingOS_gitlogo.png" width="400" />
 </p>
   
-> **⚠ Warning**<br> This operating system is still under development. Wouldn't recommend you to use it yet. 
+> **⚠ Warning**<br> This operating system is still under development. I would not recommend you to use it yet. 
 
 <br>
 
