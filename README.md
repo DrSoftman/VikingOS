@@ -1,6 +1,6 @@
 
 <p align="center">
-<img src="assets/VikingOS_gitlogo.png" width="425" />
+<img src="assets/VikingOS_gitlogo.png" width="450" />
 </p>
   
 > **⚠ Warning**<br> This operating system is still under development. Wouldn't recommend you to use it yet. 
