@@ -31,5 +31,5 @@ $ make iso
 Burn the vikingos.iso onto a bootable USB, this might work or not.. Good luck!
 
 ## Support:
-Please email me on kaenklalle@gmail.com
+Please email me on kaenklalle@gmail.com!
 I will try to respond as soon as possible if I have time! God bless!
