@@ -1,6 +1,72 @@
-#include "isr.h"
-#include "idt.h"
-#include "system.h"
+#include "interrupts.h"
+#include "system.h" 
+
+
+//=====================================
+//     INTERRUPT DESCRIPTOR TABLE                   
+//=====================================
+
+struct IDTEntry {
+    u16 offset_low;
+    u16 selector;
+    u8 __ignored;
+    u8 type;
+    u16 offset_high;
+} PACKED;
+
+struct IDTPointer {
+    u16 limit;
+    uintptr_t base;
+} PACKED;
+
+static struct {
+    struct IDTEntry entries[256];
+    struct IDTPointer pointer;
+} idt;
+
+// in start.S
+extern void idt_load();
+
+void idt_set(u8 index, void (*base)(struct Registers*), u16 selector, u8 flags) {
+    idt.entries[index] = (struct IDTEntry) {
+        .offset_low = ((uintptr_t) base) & 0xFFFF,
+        .offset_high = (((uintptr_t) base) >> 16) & 0xFFFF,
+        .selector = selector,
+        .type = flags | 0x60,
+        .__ignored = 0
+    };
+}
+
+void idt_init() {
+    idt.pointer.limit = sizeof(idt.entries) - 1;
+    idt.pointer.base = (uintptr_t) &idt.entries[0];
+    memset(&idt.entries[0], 0, sizeof(idt.entries));
+    idt_load((uintptr_t) &idt.pointer);
+}
+
+
+//=========================================
+//             FPU SUPPORT
+//=========================================
+
+void fpu_init() {
+    size_t t;
+
+    asm("clts");
+    asm("mov %%cr0, %0" : "=r"(t));
+    t &= ~(1 << 2);
+    t |= (1 << 1);
+    asm("mov %0, %%cr0" :: "r"(t));
+    asm("mov %%cr4, %0" : "=r"(t));
+    t |= 3 << 9;
+    asm("mov %0, %%cr4" :: "r"(t));
+    asm("fninit");
+}
+
+
+//============================================
+//        INTERRUPT SERVICE ROUTINES
+//============================================
 
 #define NUM_ISRS 48
 
@@ -83,13 +149,13 @@ static struct {
 static void (*handlers[NUM_ISRS])(struct Registers*) = { 0 };
 
 void isr_install(size_t i, void (*handler)(struct Registers*)) {
-    handlers[i] = handler;
+    isr_handlers[i] = handler;
 }
 
 // referenced from start.S
 void isr_handler(struct Registers *regs) {
-    if (handlers[regs->int_no]) {
-        handlers[regs->int_no](regs);
+    if (isr_handlers[regs->int_no]) {
+        isr_handlers[regs->int_no](regs);
     }
 }
 
@@ -106,5 +172,87 @@ void isr_init() {
 
     for (size_t i = 0; i < 32; i++) {
         isr_install(i, exception_handler);
+    }
+}
+
+
+//============================================
+//         INTERRUPT REQUEST HANDLERS
+//============================================
+
+// PIC constants
+#define PIC1 0x20
+#define PIC1_OFFSET 0x20
+#define PIC1_DATA (PIC1 + 1)
+#define PIC2 0xA0
+#define PIC2_OFFSET 0x28
+#define PIC2_DATA (PIC2 + 1)
+#define PIC_EOI 0x20
+#define PIC_MODE_8086 0x01
+#define ICW1_ICW4 0x01
+#define ICW1_INIT 0x10
+
+#define PIC_WAIT() do {         \
+        asm ("jmp 1f\n\t"       \
+                "1:\n\t"        \
+                "    jmp 2f\n\t"\
+                "2:");          \
+    } while (0)
+
+static void (*irq_handlers[32])(struct Registers *regs) = { 0 };
+
+static void irq_stub(struct Registers *regs) {
+    if (regs->int_no <= 47 && regs->int_no >= 32) {
+        if (irq_handlers[regs->int_no - 32]) {
+            irq_handlers[regs->int_no - 32](regs);
+        }
+    }
+
+    // send EOI
+    if (regs->int_no >= 0x40) {
+        outportb(PIC2, PIC_EOI);
+    }
+
+    outportb(PIC1, PIC_EOI);
+}
+
+static void irq_remap() {
+    u8 mask1 = inportb(PIC1_DATA), mask2 = inportb(PIC2_DATA);
+    
+    outportb(PIC1, ICW1_INIT | ICW1_ICW4);
+    outportb(PIC2, ICW1_INIT | ICW1_ICW4);
+    outportb(PIC1_DATA, PIC1_OFFSET);
+    outportb(PIC2_DATA, PIC2_OFFSET);
+    outportb(PIC1_DATA, 0x04); // PIC2 at IRQ2
+    outportb(PIC2_DATA, 0x02); // Cascade indentity
+    outportb(PIC1_DATA, PIC_MODE_8086);
+    outportb(PIC1_DATA, PIC_MODE_8086);
+    outportb(PIC1_DATA, mask1);
+    outportb(PIC2_DATA, mask2);
+}
+
+static void irq_set_mask(size_t i) {
+    u16 port = i < 8 ? PIC1_DATA : PIC2_DATA;
+    u8 value = inportb(port) | (1 << i);
+    outportb(port, value);
+}
+
+static void irq_clear_mask(size_t i) {
+    u16 port = i < 8 ? PIC1_DATA : PIC2_DATA;
+    u8 value = inportb(port) & ~(1 << i);
+    outportb(port, value);
+}
+
+void irq_install(size_t i, void (*irq_handler)(struct Registers *)) {
+    CLI();
+    irq_handlers[i] = handler;
+    irq_clear_mask(i);
+    STI();
+}
+
+void irq_init() {
+    irq_remap();
+    for (size_t i = 0; i < 16; i++) {
+        isr_install(32 + i, irq_stub);
     }
 }
