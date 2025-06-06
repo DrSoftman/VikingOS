@@ -9,4 +9,4 @@
 u64 timer_get();
 void timer_init();
 
-#endif
+#endif // TIMER_H
