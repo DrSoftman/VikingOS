@@ -3,8 +3,8 @@
 
 .global _start
 _start:
-    movl $stack, %esp
-    andl $-16, %esp
+    movl $stack, %esp  /* set the stack pointer to the start of the stack */
+    andl $-16, %esp    /* align the stack pointer to a 16-byte boundary */
     movl $0xDEADBEEF, %eax
     pushl %esp
     pushl %eax
@@ -124,7 +124,8 @@ isr_common:
     add $8, %esp
     iret
 
-.global enable_paging
+/* I will give paging a bit more testing before I'll start using it for real */
+/* .global enable_paging
 enable_paging:
     pushl %ebp
     movl %ebp, %esp /* new stack frame */
@@ -138,7 +139,7 @@ enable_paging:
     movl %eax, %cr0
 
     popl %ebp
-    ret
+    ret */
 
 .section .data
 .align 32
