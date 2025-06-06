@@ -248,7 +248,7 @@ static void irq_clear_mask(size_t i) {
 
 void irq_install(size_t i, void (*irq_handler)(struct Registers *)) {
     CLI();
-    irq_handlers[i] = handlers;
+    irq_handlers[i] = handlers[i];
     irq_clear_mask(i);
     STI();
 }
