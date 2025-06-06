@@ -49,7 +49,7 @@ KERNEL_OBJS=$(KERNEL_C_OBJS) $(KERNEL_CPP_OBJS) $(START_OBJS) $(ASM_OBJS)
 # output files
 BOOTSECT=bootsect.bin
 KERNEL=kernel.bin
-ISO=auroraos.iso
+ISO=vikingos.iso
 
 all: dirs bootsect kernel iso
 
