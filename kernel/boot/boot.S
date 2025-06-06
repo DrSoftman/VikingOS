@@ -7,13 +7,18 @@
 _start:
     cli
 
-    /* segment setup */
+%macro setup_segments 0
     mov %cs, %ax
     mov %ax, %ds
     mov %ax, %es
     mov %ax, %fs
     mov %ax, %gs
     mov %ax, %ss
+%endmacro
+
+    /* constants */
+    .equ KERNEL_SEGMENT 0x1000
+    .equ NUM_SECTORS 20
 
     /* place stack pointer in middle of free memory area */
     movw $0x3000, %sp
@@ -31,10 +36,10 @@ _start:
        kernel binary has been placed on the disk directly after the first sector
        reading $20 * num_sectors sectors after (value in %cx)
      */
-    movw $20, %cx
+    movw $NUM_SECTORS, %cx
     movb drive_num, %dl
     movw $disk_packet, %si
-    movw $0x1000, segment
+    movw $KERNEL_SEGMENT, segment
     movw $1, sector
 sector_loop:
     movb $0x42, %ah
@@ -126,6 +131,8 @@ enable_a20_wait1:
 disk_error:
     movw $disk_error_str, %si
     call print
+    cli 
+    hlt
 
 /* prints string in %ds:si */
 print:
