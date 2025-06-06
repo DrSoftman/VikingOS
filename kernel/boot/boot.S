@@ -57,6 +57,16 @@ sector_same_segment:
     movb $0x13, %al
     int $0x10
 
+    /* Blue screen */
+    movw $0xA000, %ax        
+    movw %ax, %es            /* es -> video mem */
+    xorw %di, %di            /* offset 0 */
+    movb $1, %al             
+    mov $64000, %cx                      
+    rep stosb  
+
+
+    
     /* enable A20 line */
     cli
 
