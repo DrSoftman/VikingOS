@@ -18,8 +18,8 @@ _start:
 
 
     /* define essential constants */
-    .equ KERNEL_SEGMENT 0x1000 /* memory segment for kernel loading */
-    .equ NUM_SECTORS 20 /* number of sectors to read */
+    .equ KERNEL_SEGMENT, 0x1000 /* memory segment for kernel loading */
+    .equ NUM_SECTORS, 20 /* number of sectors to read */
 
     /* set up the stack pointer in free memory space */
     movw $0x3000, %sp
