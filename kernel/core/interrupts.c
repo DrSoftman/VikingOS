@@ -149,13 +149,13 @@ static struct {
 static void (*handlers[NUM_ISRS])(struct Registers*) = { 0 };
 
 void isr_install(size_t i, void (*handler)(struct Registers*)) {
-    isr_handlers[i] = handler;
+    handlers[i] = handler;
 }
 
 // referenced from start.S
 void isr_handler(struct Registers *regs) {
-    if (isr_handlers[regs->int_no]) {
-        isr_handlers[regs->int_no](regs);
+    if (isr_handler[regs->int_no]) {
+        isr_handler[regs->int_no](regs);
     }
 }
 
@@ -245,7 +245,7 @@ static void irq_clear_mask(size_t i) {
 
 void irq_install(size_t i, void (*irq_handler)(struct Registers *)) {
     CLI();
-    irq_handlers[i] = handler;
+    irq_handlers[i] = handlers;
     irq_clear_mask(i);
     STI();
 }
