@@ -3,7 +3,4 @@
 
 #include "../core/util.h"
 
-void* malloc(u32 size);
-void free(void* ptr);
-
-#endif
+#endif // MEM_H
