@@ -12,4 +12,4 @@ f64 sin(f64 x);
 f64 cos(f64 x);
 f64 pow(f64 x, f64 y);
 
-#endif
+#endif // MATH_H
