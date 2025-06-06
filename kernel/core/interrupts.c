@@ -1,6 +1,9 @@
 #include "interrupts.h"
 #include "system.h" 
 
+// Don't ask what this is, copilot told me to do this so I could fix a stupid error
+#define NUM_INTERRUPTS 256  // or however many you need
+void (*isr_handler[NUM_INTERRUPTS])(struct Registers *) = {0};
 
 //=====================================
 //     INTERRUPT DESCRIPTOR TABLE                   
