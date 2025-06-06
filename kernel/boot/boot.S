@@ -174,11 +174,12 @@ segment:
 sector:
     .quad 0x00000000
 
+
 .align 16
 gdtp:
     .word gdt_end - gdt_start - 1  /* GDT size */
-    /* .long (0x07C0 << 4) + gdt  /* GDT location */
-    .long gdt_start
+    .long gdt_start /* GDT location */
+
 
 .align 16
 gdt_start:
@@ -199,6 +200,7 @@ gdt_data_segment:
     .byte 0b11001111
     .byte 0x00
 gdt_end:
+
 
 idt:
     .word 0
