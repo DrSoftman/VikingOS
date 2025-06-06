@@ -3,7 +3,7 @@
 
 #include "../core/util.h"
 
-#define MAX_DATA_BLOCKS 512 
+#define BLOCK_SIZE 512 
 #define MAX_FILES 256
 #define MAX_FILENAME_LENGTH
 #define FS_MAGIC 0xABCD1234
