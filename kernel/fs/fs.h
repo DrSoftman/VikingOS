@@ -38,6 +38,6 @@ void fs_init();
 //           FILE OPERATIONS
 //=======================================
 
-// TODO: Declare the functions for the file operations
+// TODO: Declare the function prototypes for the file operations
 
 #endif // FS_H
