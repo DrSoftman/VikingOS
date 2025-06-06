@@ -29,27 +29,27 @@ START_OBJS=$(START_SRCS:.S=.o)
 
 ASM_SRCS=\
 
+
 #all asm sources
 ASM_OBJS=$(ASM_SRCS:.S=.o)
 
-## ** TODO: ADD THE C/C++ SOURCE FILES WHEN I HAVE COMPLETED THEM IN THE FUTURE, FOR NOW I'LL JUST STICK TO COMPILING THE ASM CODE IN /kernel/boot/ UNTIL I AM DONE WITH THEM**
 # find all C source files
-# KERNEL_C_SRCS=$(wildcard # Add C source files here # )
+KERNEL_C_SRCS=$(wildcard kernel/*.c kernel/mem/*.c kernel/ui/system/*.c kernel/drivers/*.c kernel/ui/*.c kernel/home/*.c kernel/core/*.c)
 # find all C++ source files
-# KERNEL_CPP_SRCS=$(wildcard # Add C++ source files here # )
+KERNEL_CPP_SRCS=$(wildcard kernel/*.cpp kernel/ui/system/*.cpp kernel/drivers/*.cpp kernel/ui/*.cpp kernel/mem/*.cpp kernel/core/*.cpp)
 # convert C source files to .o
-# KERNEL_C_OBJS=$(KERNEL_C_SRCS:.c=.o)
+KERNEL_C_OBJS=$(KERNEL_C_SRCS:.c=.o)
 # convert C++ source files to .o
-# KERNEL_CPP_OBJS=$(KERNEL_CPP_SRCS:.cpp=.o)
+KERNEL_CPP_OBJS=$(KERNEL_CPP_SRCS:.cpp=.o)
 
-## ** TODO: ADD "$(KERNEL_C_OBJS) $(KERNEL_CPP_OBJS)" IN THE KERNEL_OBJS WHEN I HAVE COMPLETED THE C/C++ SOURCE FILES, AS STATED, I WILL STICK TO THE ASM CODE FOR NOW **
+
 # all kernel objects combined
-KERNEL_OBJS=$(START_OBJS) $(ASM_OBJS)
+KERNEL_OBJS=$(KERNEL_C_OBJS) $(KERNEL_CPP_OBJS) $(START_OBJS) $(ASM_OBJS)
 
 # output files
 BOOTSECT=bootsect.bin
 KERNEL=kernel.bin
-ISO=vikingos.iso
+ISO=auroraos.iso
 
 all: dirs bootsect kernel iso
 
@@ -94,9 +94,9 @@ iso: dirs bootsect kernel
 	mkisofs -o $(ISO) -b $(BOOTSECT) -c boot.catalog -no-emul-boot -boot-load-size 4 -boot-info-table bin/
 
 img: dirs bootsect kernel
-	dd if=/dev/zero of=vikingos.img bs=512 count=2880
-	dd if=./bin/$(BOOTSECT) of=vikingos.img conv=notrunc bs=512 seek=0 count=1
-	dd if=./bin/$(KERNEL) of=vikingos.img conv=notrunc bs=512 seek=1 count=2048
+	dd if=/dev/zero of=auroraos.img bs=512 count=2880
+	dd if=./bin/$(BOOTSECT) of=auroraos.img conv=notrunc bs=512 seek=0 count=1
+	dd if=./bin/$(KERNEL) of=auroraos.img conv=notrunc bs=512 seek=1 count=2048
 
 # special targets
 .PHONY: all dirs clean bootsect kernel iso img
