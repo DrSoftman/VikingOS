@@ -3,7 +3,8 @@
 <img src="assets/VikingOS_git_logo.png" width="400" />
 </p>
   
-> **⚠ Warning**<br> This operating system is still under development and lacks a lot of features. 
+> **⚠ Warning**<br> VikingOS is still under development and lacks a lot of features. I do not recommend you to use it just yet.
+
 
 ## Getting Started:
 
