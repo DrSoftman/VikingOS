@@ -3,31 +3,10 @@
 <img src="assets/VikingOS_git_logo.png" width="400" />
 </p>
   
-> **⚠ Warning**<br> This operating system is still under development. I would not recommend you to use it yet. 
+> **⚠ Warning**<br> This operating system is still under development and lacks a lot of features. 
 
-<br>
-
-## Getting Started:
-
-**1.** Build the OS:
-```
-$ git clone https://github.com/DrSoftman/VikingOS
-$ cd VikingOS
-$ make img
-```
-
-**2.** Run the OS with QEMU:
-```
-$  qemu-system-i386 --drive format=raw,file=vikingos.img -monitor stdio -no-reboot -d guest_errors,int,pcall,unimp,out_asm -D debug.log
-```
-Remove the ``-monitor stdio`` and use ``-nographic`` to run it just in the terminal.
-
-**Building on real hardware...**
-Here is how to build it on real hardware. If you want your computer to be sent to deepest depths of agony and suffering, then I would recommend you to use this method!
-```
-$ make iso
-```
-Burn the vikingos.iso onto a bootable USB, this might work or not.. Good luck!
+  I am going to make a new kernel and write it with better care since my last attempt at making a 
+  kernel made me very confused.
 
 ## Support:
 Please email me on kaenklalle@gmail.com!
