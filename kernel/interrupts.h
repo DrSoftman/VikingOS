@@ -10,7 +10,19 @@ struct Registers {
     u32 eip, cs, efl, useresp, ss;
 };
 
+// ISR functions
 void isr_install(size_t i, void (*handler)(struct Registers*));
 void isr_init();
 
-#endif
+// FPU functions
+void fpu_init();
+
+// IDT functions
+void idt_set(u8 index, void (*base)(struct Registers*), u16 selector, u8 flags);
+void idt_init();
+
+// IRQ functions
+void irq_install(size_t i, void (*handler)(struct Registers*));
+void irq_init();
+
+#endif // INTERRUPTS_H
