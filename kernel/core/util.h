@@ -15,11 +15,9 @@ typedef u32 uintptr_t;
 typedef float f32;
 typedef double f64;
 
-#ifndef __cplusplus
 typedef u8 bool;
 #define true (1)
 #define false (0)
-#endif
 
 #define NULL (0)
 
