@@ -108,6 +108,7 @@
 
 #define KEY_IS_PRESS(scancode)  ((scancode & 0x80) == 0)
 #define KEY_SCANCODE(scancode) (scancode & 0x7F)
+#define KEY_CHAR(scancode)     (scancode & 0x7F)
 
 typedef enum {
     KEYBOARD_LAYOUT_US = 0,
@@ -125,5 +126,8 @@ struct Keyboard {
     } connected_type;
     KeyboardLayout layout; 
 };
+
+// TODO: Declare functions for keyboard drivers
+
 
 #endif // KEYBOARD_H
