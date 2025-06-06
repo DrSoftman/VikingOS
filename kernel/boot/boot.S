@@ -7,7 +7,7 @@
 _start:
     cli /* disable interrupts to ensure a stable environment for booting */
 
-%macro setup_segments 0
+
     /* initialize all segment registers to match the code segment */
     mov %cs, %ax
     mov %ax, %ds
@@ -15,7 +15,7 @@ _start:
     mov %ax, %fs
     mov %ax, %gs
     mov %ax, %ss
-%endmacro
+
 
     /* define essential constants */
     .equ KERNEL_SEGMENT 0x1000 /* memory segment for kernel loading */
