@@ -1,0 +1,24 @@
+kernel/drivers/keyboard.c:32:37: warning: ‘struct Registers’ declared inside parameter list will not be visible outside of this definition or declaration
+   32 | static void keyboard_handler(struct Registers *regs) {
+      |                                     ^~~~~~~~~
+kernel/drivers/keyboard.c: In function ‘keyboard_init’:
+kernel/drivers/keyboard.c:64:5: warning: implicit declaration of function ‘irq_install’ [-Wimplicit-function-declaration]
+   64 |     irq_install(1, keyboard_handler);
+      |     ^~~~~~~~~~~
+gcc -o kernel/ui/mjölnir.o -c kernel/ui/mjölnir.c  -m32 -std=c11 -O2 -g -Wall -Wextra -Wpedantic -Wstrict-aliasing -Wno-pointer-arith -Wno-unused-parameter -nostdlib -nostdinc -ffreestanding -fno-pie -fno-stack-protector -fno-builtin-function -fno-builtin
+gcc -o kernel/core/interrupts.o -c kernel/core/interrupts.c  -m32 -std=c11 -O2 -g -Wall -Wextra -Wpedantic -Wstrict-aliasing -Wno-pointer-arith -Wno-unused-parameter -nostdlib -nostdinc -ffreestanding -fno-pie -fno-stack-protector -fno-builtin-function -fno-builtin
+kernel/core/interrupts.c:2:21: warning: extra tokens at end of #include directive
+    2 | #include "system.h" ;
+      |                     ^
+kernel/core/interrupts.c: In function ‘isr_handler’:
+kernel/core/interrupts.c:156:20: error: subscripted value is neither array nor pointer nor vector
+  156 |     if (isr_handler[regs->int_no]) {
+      |                    ^
+kernel/core/interrupts.c:157:20: error: subscripted value is neither array nor pointer nor vector
+  157 |         isr_handler[regs->int_no](regs);
+      |                    ^
+At top level:
+kernel/core/interrupts.c:233:13: warning: ‘irq_set_mask’ defined but not used [-Wunused-function]
+  233 | static void irq_set_mask(size_t i) {
+      |             ^~~~~~~~~~~~
+make: *** [Makefile:63: kernel/core/interrupts.o] Error 1
