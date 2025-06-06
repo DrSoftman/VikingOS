@@ -105,3 +105,25 @@
 #define KEY_WIN_L 0x5B
 #define KEY_WIN_R 0x5C
 #define KEY_MENU 0x5D
+
+#define KEY_IS_PRESS(scancode)  ((scancode & 0x80) == 0)
+#define KEY_SCANCODE(scancode) (scancode & 0x7F)
+
+typedef enum {
+    KEYBOARD_LAYOUT_US = 0,
+    KEYBOARD_LAYOUT_SV = 1
+} KeyboardLayout;
+
+struct Keyboard {
+    bool keys[128];
+    u8 chars[128];
+    u8 mods;
+    enum {
+        KEYBOARD_NONE,
+        KEYBOARD_PS2,
+        KEYBOARD_USB
+    } connected_type;
+    KeyboardLayout layout; 
+};
+
+#endif // KEYBOARD_H
