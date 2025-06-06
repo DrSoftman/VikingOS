@@ -18,4 +18,4 @@ void panic(const char *err);
 u32 rand();
 void seed(u32 s);
 
-#endif
+#endif // SYSTEM_H
