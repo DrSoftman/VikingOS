@@ -24,7 +24,7 @@ ASM_SRCS=\
 ASM_OBJS=$(ASM_SRCS:.S=.o)
 
 # find all C source files
-KERNEL_C_SRCS=$(wildcard kernel/*.c kernel/mem/*.c kernel/ui/system/*.c kernel/drivers/*.c kernel/ui/*.c kernel/home/*.c kernel/core/*.c)
+KERNEL_C_SRCS=$(wildcard kernel/*.c kernel/mem/*.c kernel/ui/system/*.c kernel/drivers/*.c kernel/ui/*.c kernel/core/*.c)
 # convert C source files to .o
 KERNEL_C_OBJS=$(KERNEL_C_SRCS:.c=.o)
 
