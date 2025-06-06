@@ -87,17 +87,19 @@ ISR_NO_ERR 45
 ISR_NO_ERR 46
 ISR_NO_ERR 47
 
-/* defined in isr.c */
+/* defined in interrupts.c */
 .extern isr_handler
 .type isr_handler, @function
 
 isr_common:
+    /* for Registers struct */
     pusha
     push %ds
     push %es
     push %fs
     push %gs
 
+    /* load kernel */
     mov $0x10, %ax
     mov %ax, %ds
     mov %ax, %es
@@ -105,7 +107,10 @@ isr_common:
     mov %ax, %gs
     cld
 
-    push %esp
+    mov %esp, %eax
+    push %eax /* pass registers as a parameters */
+
+
     call isr_handler
     add $4, %esp
 
@@ -119,8 +124,24 @@ isr_common:
     add $8, %esp
     iret
 
+.global enable_paging
+enable_paging:
+    pushl %ebp
+    movl %ebp, %esp /* new stack frame */
+
+    movl 8(%ebp), %eax /* get first param */
+    movl %eax, %cr3
+
+    /* enable paging */
+    movl %cr0, %eax
+    orl $0x80000000, %eax
+    movl %eax, %cr0
+
+    popl %ebp
+    ret
+
 .section .data
 .align 32
 stack_begin:
-    .fill 0x4000
+    .fill 0x4000 /* 16 kb */
 stack:
