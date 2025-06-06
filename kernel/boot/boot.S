@@ -23,8 +23,8 @@ _start:
 
     sti
 
-    /* should print TETRIS TIME */
-    movw $welcome_str, %si
+    /* display "Booting VikingOS..." */
+    movw $boot_message, %si
     call print
 
     /* read kernel into memory at 0x10000 (segment 0x1000).
@@ -144,8 +144,8 @@ print:
 
 1:  ret
 
-welcome_str:
-    .asciz "TETRIS TIME\n"
+boot_message:
+    .asciz "Booting VikingOS...\n"
 disk_error_str:
     .asciz "DISK ERROR\n"
 
