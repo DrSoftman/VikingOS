@@ -5,8 +5,28 @@
   
 > **⚠ Warning**<br> This operating system is still under development and lacks a lot of features. 
 
-  I am going to make a new kernel and write it with better care since my last attempt at making a 
-  kernel made me very confused.
+## Getting Started:
+
+**1.** Build the OS:
+```
+$ git clone https://github.com/Wickslynx/AuroraOS
+$ cd AuroraOS
+$ make img
+```
+
+
+**2.** Run the OS with QEMU:
+```
+$  qemu-system-i386 --drive format=raw,file=auroraos.img -monitor stdio -no-reboot -d guest_errors,int,pcall,unimp,out_asm -D debug.log
+```
+Remove the ``-monitor stdio`` and use ``-nographic`` to run it just in the terminal.
+
+**Building on real hardware...**
+So you are building AuroraOS on real hardware, I wouldn't recommend it but here is how.
+```
+$ make iso
+```
+Burn the auroraos.iso onto a bootable USB, this might work or not.. Good luck!
 
 ## Support:
 Please email me on kaenklalle@gmail.com!
