@@ -3,10 +3,6 @@
 #ifndef INTERRUPTS_H
 #define INTERRUPTS_H
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 #include "util.h"
 #include "error.h"
 
@@ -33,10 +29,5 @@ void irq_install(size_t i, void (*handler)(struct Registers*));
 void isr_init();
 void isr_install(size_t i, void (*handler)(struct Registers*));
 void isr_handler(struct Registers *regs);
-
-#ifdef __cplusplus
-}
-#endif
-
 
 #endif /* INTERRUPTS_H */
