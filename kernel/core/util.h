@@ -1,11 +1,6 @@
 #ifndef UTIL_H
 #define UTIL_H
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif 
-
 // fixed width integer types
 typedef unsigned char u8;
 typedef unsigned short u16;
@@ -215,10 +210,5 @@ static inline size_t strlcpy(char *dst, const char *src, size_t n) {
 
    return s - src - 1;
 }
-
-#ifdef __cplusplus
-}
-#endif 
-
 
 #endif
