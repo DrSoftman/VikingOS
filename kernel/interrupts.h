@@ -1,5 +1,5 @@
-#ifndef ISR_H
-#define ISR_H
+#ifndef INTERRUPTS_H
+#define INTERRUPTS_H
 
 #include "util.h"
 
