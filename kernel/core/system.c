@@ -1,6 +1,4 @@
-#include "system.h"
-#include "screen.h" /* TODO: Fix incrrect path in the include statements  */ 
-#include "font.h"     
+#include "system.h"  
 
 static u32 rseed = 1;
 
@@ -21,8 +19,4 @@ u32 rand() {
     t = x ^ (x << 11);
     x = y; y = z; z = w;
     return w = w ^ (w >> 19) ^ t ^ (t >> 8);
-}
-
-    screen_swap();
-    for (;;) {}
 }
