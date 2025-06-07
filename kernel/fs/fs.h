@@ -4,7 +4,7 @@
 
 #include "../core/util.h"
 #include "fs_metadata.h"
-#include "fops/fops.h"
 #include "fs_init.h" 
+#include "fops/fops.h"
 
 #endif // FS_H
