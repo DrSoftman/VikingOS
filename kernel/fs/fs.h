@@ -8,6 +8,7 @@
 #define MAX_FILENAME_LENGTH 32
 #define FS_MAGIC 0xABCD1234
 #define MAX_DATA_BLOCKS 1008
+#define MAX_PATH_LENGTH 4096 // I am not completely sure if I will keep this constant within this file forever
 
 // Superblock Structure
 typedef struct {
