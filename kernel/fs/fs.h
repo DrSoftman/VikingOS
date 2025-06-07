@@ -35,10 +35,4 @@ typedef struct {
 // File system init function
 void fs_init();
 
-//======================================
-//           FILE OPERATIONS
-//=======================================
-
-// TODO: Declare the function prototypes for the file operations
-
 #endif // FS_H
