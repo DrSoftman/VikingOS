@@ -33,7 +33,4 @@ typedef struct {
     u32 inode_index;               // Index of corresponding inode
 } dir_entry_t;
 
-// File system init function
-void fs_init();
-
 #endif // FS_H
