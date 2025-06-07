@@ -1,6 +1,6 @@
 #include "system.h"
-#include "screen.h"
-#include "font.h"
+#include "screen.h" /* TODO: Fix incrrect path in the include statements  */ 
+#include "font.h"     
 
 static u32 rseed = 1;
 
@@ -22,13 +22,6 @@ u32 rand() {
     x = y; y = z; z = w;
     return w = w ^ (w >> 19) ^ t ^ (t >> 8);
 }
-
-void panic(const char *err) {
-    screen_clear(COLOR(7, 0, 0));
-
-    if (err != NULL) {
-        font_str(err, (SCREEN_WIDTH - font_width(err)) / 2, SCREEN_HEIGHT / 2 - 4, COLOR(7, 7, 3));
-    }
 
     screen_swap();
     for (;;) {}
