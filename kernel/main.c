@@ -4,14 +4,11 @@
 #include "core/util.h"
 
 void _main(u32 magic) {
+    // Add other init functions for the rest of the os components
     idt_init();	
     isr_init();	
     fpu_init(); 
-    irq_init(); 
-    /*
-    imap_kernel();
-    init_vmm();
-    */
+    irq_init();
 	
     screen_init();
     bool quit = false;
