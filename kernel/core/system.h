@@ -14,7 +14,6 @@
         _assert_1(__VA_ARGS__),\
         _assert_0(__VA_ARGS__))
 
-void panic(const char *err);
 u32 rand();
 void seed(u32 s);
 
