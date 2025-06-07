@@ -2,6 +2,7 @@
 #define FS_H
 
 #include "../core/util.h"
+#include "fops/fops.h"
 
 #define BLOCK_SIZE 512 
 #define MAX_FILES 256
