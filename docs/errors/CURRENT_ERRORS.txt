@@ -21,4 +21,3 @@ At top level:
 kernel/core/interrupts.c:233:13: warning: ‘irq_set_mask’ defined but not used [-Wunused-function]
   233 | static void irq_set_mask(size_t i) {
       |             ^~~~~~~~~~~~
-make: *** [Makefile:63: kernel/core/interrupts.o] Error 1
