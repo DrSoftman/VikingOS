@@ -34,6 +34,11 @@ typedef struct {
 
 void fs_init();
 
-// TODO: Declare function prototypes for the file operations 
+// "Fops" is a shortening of "File operations"
+struct Fops {
+    int (*create)(const char *path);
+    int (*read)(int fd, void *buffer, unsigned int count);
+    int (*write)(int fd, const void *buffer, unsigned int count);
+};
 
 #endif // FS_H
