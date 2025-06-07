@@ -35,10 +35,3 @@ void fs_init() {
     memset(free_data_bitmap, 0, sb->data_blocks);
 }
 
-
-//=======================================
-//       FILE MANAGEMENT FUNCTIONS          
-//=======================================
-
-// TODO: Write the code for the functions that will be declared in fs.h
-
