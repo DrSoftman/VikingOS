@@ -1,7 +1,7 @@
 #ifndef FOPS_H
 #define FOPS_H
 
-#include "../fs.h"
+#include "fs_metadata.h"
 
 // TODO: Write function prototypes for the file operations
 
