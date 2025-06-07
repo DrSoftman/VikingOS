@@ -3,9 +3,10 @@
 
 #include "../../core/util.h"
 
-#define SCREEN_WIDTH 320
-#define SCREEN_HEIGHT 200
-#define SCREEN_SIZE (SCREEN_WIDTH * SCREEN_HEIGHT)
+#define SCREEN_WIDTH 1024
+#define SCREEN_HEIGHT 768
+#define BPP 2 // (2 bytes per pixel - 16 bit)
+#define SCREEN_SIZE (SCREEN_WIDTH * SCREEN_HEIGHT * BPP)
 
 #define COLOR(_r, _g, _b)((u8)( \
     (((_r) & 0x7) << 5) |       \
